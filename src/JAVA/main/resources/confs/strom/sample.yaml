@@ -1,0 +1,91 @@
+topology.enable.message.timeouts: true
+topology.debug: false
+topology.workers: 1
+topology.acker.executors: null
+topology.ras.acker.executors.per.worker: 1
+topology.eventlogger.executors: 0
+topology.tasks: null
+# maximum amount of time a message has to complete before it's considered failed
+topology.message.timeout.secs: 30
+topology.multilang.serializer: "org.apache.storm.multilang.JsonSerializer"
+topology.shellbolt.max.pending: 100
+topology.skip.missing.kryo.registrations: false
+topology.max.task.parallelism: null
+topology.max.spout.pending: null    # ideally should be larger than topology.producer.batch.size. (esp. if topology.batch.flush.interval.millis=0)
+topology.state.synchronization.timeout.secs: 60
+topology.stats.sample.rate: 0.05
+topology.builtin.metrics.bucket.size.secs: 60
+topology.fall.back.on.java.serialization: false
+topology.worker.childopts: null
+topology.worker.logwriter.childopts: "-Xmx64m"
+topology.tick.tuple.freq.secs: null
+topology.worker.shared.thread.pool.size: 4
+
+# Spout Wait Strategy - employed when there is no data to produce
+topology.spout.wait.strategy: "org.apache.storm.policy.WaitStrategyProgressive"
+topology.spout.wait.park.microsec : 100          # park time for org.apache.storm.policy.WaitStrategyPark. Busy spins if set to 0.
+
+topology.spout.wait.progressive.level1.count: 0          # number of iterations to spend in level 1 [no sleep] of WaitStrategyProgressive, before progressing to level 2
+topology.spout.wait.progressive.level2.count: 0          # number of iterations to spend in level 2 [parkNanos(1)] of WaitStrategyProgressive, before progressing to level 3
+topology.spout.wait.progressive.level3.sleep.millis: 1   # sleep duration for idling iterations in level 3 of WaitStrategyProgressive
+
+# Bolt Wait Strategy - employed when there is no data in its receive buffer to process
+topology.bolt.wait.strategy : "org.apache.storm.policy.WaitStrategyProgressive"
+
+topology.bolt.wait.park.microsec : 100          # park time for org.apache.storm.policy.WaitStrategyPark. Busy spins if set to 0.
+
+topology.bolt.wait.progressive.level1.count: 1          # number of iterations to spend in level 1 [no sleep] of WaitStrategyProgressive, before progressing to level 2
+topology.bolt.wait.progressive.level2.count: 1000       # number of iterations to spend in level 2 [parkNanos(1)] of WaitStrategyProgressive, before progressing to level 3
+topology.bolt.wait.progressive.level3.sleep.millis: 1   # sleep duration for idling iterations in level 3 of WaitStrategyProgressive
+
+# BackPressure Wait Strategy - for any producer (spout/bolt/transfer thread) when the downstream Q is full
+topology.backpressure.wait.strategy: "org.apache.storm.policy.WaitStrategyProgressive"
+
+topology.backpressure.wait.park.microsec: 100          #  park time for org.apache.storm.policy.WaitStrategyPark. Busy spins if set to 0.
+
+topology.backpressure.wait.progressive.level1.count: 1        # number of iterations to spend in level 1 [no sleep] of WaitStrategyProgressive, before progressing to level 2
+topology.backpressure.wait.progressive.level2.count: 1000     # number of iterations to spend in level 2 [parkNanos(1)] of WaitStrategyProgressive, before progressing to level 3
+topology.backpressure.wait.progressive.level3.sleep.millis: 1 # sleep duration for idling iterations in level 3 of WaitStrategyProgressive
+
+
+topology.backpressure.check.millis: 50   # how often to check if backpressure has relieved on executors under BP, for informing other workers to resume sending msgs to them. Must be > 0
+topology.executor.overflow.limit: 0    # max items in overflowQ of any bolt/spout. When exceeded, worker will drop incoming messages (from the workers) destined to that overflowing spout/bolt. Set to 0 to disable overflow limiting. Enabling this may degrade perf slightly.
+
+topology.error.throttle.interval.secs: 10
+topology.max.error.report.per.interval: 5
+topology.kryo.factory: "org.apache.storm.serialization.DefaultKryoFactory"
+topology.tuple.serializer: "org.apache.storm.serialization.types.ListDelegateSerializer"
+topology.trident.batch.emit.interval.millis: 500
+topology.testing.always.try.serialize: false
+topology.classpath: null
+topology.environment: null
+
+topology.transfer.buffer.size: 1000   # size of recv  queue for transfer worker thread
+topology.transfer.batch.size: 1       # can be no larger than half of `topology.transfer.buffer.size`
+
+topology.executor.receive.buffer.size: 32768  # size of recv queue for spouts & bolts. Will be internally rounded up to next power of 2 (if not already a power of 2)
+topology.producer.batch.size: 1               # can be no larger than half of `topology.executor.receive.buffer.size`
+
+topology.batch.flush.interval.millis: 1  # Flush tuples are disabled if this is set to 0 or if (topology.producer.batch.size=1 and topology.transfer.batch.size=1).
+topology.spout.recvq.skips: 3  # Check recvQ once every N invocations of Spout's nextTuple() [when ACKs disabled]
+
+topology.disable.loadaware.messaging: false
+topology.state.checkpoint.interval.ms: 1000
+topology.localityaware.higher.bound: 0.8
+topology.localityaware.lower.bound: 0.2
+topology.serialized.message.size.metrics: false
+
+# Configs for Resource Aware Scheduler
+# topology priority describing the importance of the topology in decreasing importance starting from 0 (i.e. 0 is the highest priority and the priority importance decreases as the priority number increases).
+# Recommended range of 0-29 but no hard limit set.
+topology.priority: 29
+topology.component.resources.onheap.memory.mb: 128.0
+topology.component.resources.offheap.memory.mb: 0.0
+topology.component.cpu.pcore.percent: 10.0
+topology.worker.max.heap.size.mb: 768.0
+topology.scheduler.strategy: "org.apache.storm.scheduler.resource.strategies.scheduling.DefaultResourceAwareStrategy"
+resource.aware.scheduler.priority.strategy: "org.apache.storm.scheduler.resource.strategies.priority.DefaultSchedulingPriorityStrategy"
+topology.ras.constraint.max.state.search: 10_000     # The maximum number of states that will be searched looking for a solution in the constraint solver strategy
+resource.aware.scheduler.constraint.max.state.search: 100_000 # Daemon limit on maximum number of states that will be searched looking for a solution in the constraint solver strategy
+topology.ras.one.executor.per.worker: false
+topology.ras.one.component.per.worker: false

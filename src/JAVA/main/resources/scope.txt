@@ -1,0 +1,8 @@
+Primordial,Java,stdlib,base
+Primordial,Java,jarFile,/usr/local/Lcg-src/src/main/resources/primordial.jar.model
+Application,Java,jarFile,/usr/local/Lcg-src/src/main/resources/jars/hadoop-common-3.3.6.jar
+Application,Java,sourceDir,/usr/local/Lcg-src/src/main/resources/jars/hadoop-common-3.3.6
+Application,Java,jarFile,/usr/local/Lcg-src/src/main/resources/jars/hadoop-annotations-3.3.6.jar
+Application,Java,sourceDir,/usr/local/Lcg-src/src/main/resources/jars/hadoop-annotations-3.3.6
+Application,Java,jarFile,/usr/local/Lcg-src/src/main/resources/jars/hadoop-auth-3.3.6.jar
+Application,Java,sourceDir,/usr/local/Lcg-src/src/main/resources/jars/hadoop-auth-3.3.6

@@ -1,0 +1,3 @@
+cname,cvalue,ctype,cdesc,Deprecated
+topology.enable.message.timeouts,3,CONSTANT_NUMERIC,,false
+topology.message.timeout.secs,11,CONSTANT_NUMERIC,,false

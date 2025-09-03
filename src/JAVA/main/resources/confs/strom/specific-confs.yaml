@@ -1,0 +1,2 @@
+topology.enable.message.timeouts: 3
+topology.message.timeout.secs: 11
