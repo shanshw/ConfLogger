@@ -1,5 +1,6 @@
 ## Introduction
 This is the code repository of ConfLogger proposed in the paper [ConfLogger: Enhance Systems' Configuration Diagnosability through Configuration Logging](https://arxiv.org/abs/2508.20977)
+
 ![Overview](fig/overview.png)
 
 ## requirements
